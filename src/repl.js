@@ -14,6 +14,9 @@ export const repl = async (rl ,line) => {
                     await navigation.cp(args[0]);
                 }
                 break;
+            case 'ls':
+                await navigation.ls();
+                break;
             case '.exit':
                 return rl.close();    
             default:

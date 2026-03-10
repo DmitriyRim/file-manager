@@ -1,4 +1,4 @@
-import { stat } from 'node:fs/promises';
+import { readdir, stat } from 'node:fs/promises';
 import os from 'node:os';
 import { sep } from 'node:path';
 import { pathResolver } from './utils/pathResolver.js';
@@ -24,4 +24,22 @@ export const cp = async (pathToDirectory) => {
     } else {
         throw new Error();
     }
+}
+
+export const ls = async () => {
+    const data = await readdir(currentDirectory);
+    const files = [];
+    const folders = [];
+
+    for (let item of data) {
+        const stats = await stat(pathResolver(item));
+
+        if(stats.isDirectory()) folders.push(item);
+        if(stats.isFile()) files.push(item);
+    }
+
+    folders.sort((a, b) => b - a);
+    files.sort((a, b) => b - a);
+
+    console.log( ...folders.map(folder => `${folder} [folder]\n`), ...files.map(file => `${file} [file]\n`))
 }
