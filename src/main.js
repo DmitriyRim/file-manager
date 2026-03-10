@@ -15,7 +15,6 @@ const init = async () => {
     rl.on('line', (line) => {
         console.log(`Received: ${line}`);
         repl(rl, line);
-        rl.prompt();
     });
     rl.on('close', () => {
         console.log('\r' + exitMessage);

@@ -1,13 +1,18 @@
-import { currentDirectory, up } from "./navigation.js";
+import * as navigation from "./navigation.js";
 import { argParser } from "./utils/argParser.js";
 
-export const repl = (rl ,line) => {
-    const [command] = argParser(line);
+export const repl = async (rl ,line) => {
+    const [command, ...args] = argParser(line);
 
     try {
         switch (command) {
             case 'up':
-                if(!up()) return;
+                if(!navigation.up()) return;
+                break;
+            case 'cp':
+                if(args[0]){
+                    await navigation.cp(args[0]);
+                }
                 break;
             case '.exit':
                 return rl.close();    
@@ -16,8 +21,9 @@ export const repl = (rl ,line) => {
                 return;
         }
 
-        console.log(currentDirectory);
+        console.log(navigation.currentDirectory);
     } catch (error) {
         console.log('Operation failed');
     }
+    rl.prompt();
 }
