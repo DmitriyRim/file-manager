@@ -1,21 +1,31 @@
-import * as navigation from "./navigation.js";
+import { csvToJson } from "./commands/csvToJson.js";
+import { ls, up, cp, currentDirectory } from "./navigation.js";
 import { argParser } from "./utils/argParser.js";
 
 export const repl = async (rl ,line) => {
-    const [command, ...args] = argParser(line);
+    const [command, ...args] = line.trim().split(' ');
 
     try {
         switch (command) {
             case 'up':
-                if(!navigation.up()) return;
+                if(!up()) return;
                 break;
             case 'cp':
                 if(args[0]){
-                    await navigation.cp(args[0]);
+                    await cp(args[0]);
                 }
                 break;
             case 'ls':
-                await navigation.ls();
+                await ls();
+                break;
+            case 'csv-to-json':
+                const { input, output } = argParser(args);
+
+                if(input && output) {
+                    await csvToJson(input, output);
+                } else {
+                    console.log('Invalid input');
+                }
                 break;
             case '.exit':
                 return rl.close();    
@@ -24,7 +34,7 @@ export const repl = async (rl ,line) => {
                 return;
         }
 
-        console.log(navigation.currentDirectory);
+        console.log(currentDirectory);
     } catch (error) {
         console.log('Operation failed');
     }

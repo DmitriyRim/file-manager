@@ -32,14 +32,18 @@ export const ls = async () => {
     const folders = [];
 
     for (let item of data) {
-        const stats = await stat(pathResolver(item));
+        try {
+            const stats = await stat(pathResolver(item));
 
-        if(stats.isDirectory()) folders.push(item);
-        if(stats.isFile()) files.push(item);
+            if(stats.isDirectory()) folders.push(item);
+            if(stats.isFile()) files.push(item);
+        } catch {
+            continue;
+        }
     }
 
     folders.sort((a, b) => b - a);
     files.sort((a, b) => b - a);
 
-    console.log( ...folders.map(folder => `${folder} [folder]\n`), ...files.map(file => `${file} [file]\n`))
+    console.log('\n', ...folders.map(folder => `${folder} [folder]\n`), ...files.map(file => `${file} [file]\n`))
 }
