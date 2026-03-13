@@ -15,7 +15,7 @@ export const up = () => {
     return false;
 }
 
-export const cp = async (pathToDirectory) => {
+export const cd = async (pathToDirectory) => {
     const absolutePath = pathResolver(pathToDirectory);
     const stats = await stat(absolutePath);
 
