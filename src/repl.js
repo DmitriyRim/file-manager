@@ -1,4 +1,5 @@
 import { csvToJson } from "./commands/csvToJson.js";
+import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { ls, up, cp, currentDirectory } from "./navigation.js";
 import { argParser } from "./utils/argParser.js";
 
@@ -27,6 +28,9 @@ export const repl = async (rl ,line) => {
                     console.log('Invalid input');
                 }
                 break;
+            case 'json-to-csv':
+                await jsonToCsv(args);
+                break;
             case '.exit':
                 return rl.close();    
             default:
@@ -37,6 +41,7 @@ export const repl = async (rl ,line) => {
         console.log(currentDirectory);
     } catch (error) {
         console.log('Operation failed');
+        console.log(error)
     }
     rl.prompt();
 }
