@@ -5,9 +5,17 @@ import { createReadStream, createWriteStream } from 'node:fs';
 import { Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 
-export const csvToJson = async (input, output) => {
+export const csvToJson = async (args) => {
+    const { input, output } = argParser(args);
+
+    if(!input || !output) {
+        console.log('Invalid input');
+        return;
+    }
+
     const pathInputFile = pathResolver(input);
     const pathOutputFile = pathResolver(output);
+    
 
     await access(pathInputFile);
     

@@ -20,13 +20,7 @@ export const repl = async (rl ,line) => {
                 await ls();
                 break;
             case 'csv-to-json':
-                const { input, output } = argParser(args);
-
-                if(input && output) {
-                    await csvToJson(input, output);
-                } else {
-                    console.log('Invalid input');
-                }
+                await csvToJson(args);
                 break;
             case 'json-to-csv':
                 await jsonToCsv(args);
