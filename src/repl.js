@@ -1,5 +1,6 @@
 import { count } from "./commands/count.js";
 import { csvToJson } from "./commands/csvToJson.js";
+import { calcHash } from "./commands/hash.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { ls, up, cd, currentDirectory } from "./navigation.js";
 
@@ -28,6 +29,9 @@ export const repl = async (rl ,line) => {
             case 'count':
                 await count(args);
                 break
+            case 'hash':
+                await calcHash(args);
+                break
             case '.exit':
                 return rl.close();    
             default:
@@ -38,7 +42,7 @@ export const repl = async (rl ,line) => {
         console.log(currentDirectory);
     } catch (error) {
         console.log('Operation failed');
-        // console.log(error)
+        console.log(error)
     }
     rl.prompt();
 }

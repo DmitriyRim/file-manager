@@ -9,6 +9,10 @@ export const argParser = (args) => {
         if(arg && arg.startsWith('--') && array[index + 1]){
             result[arg.slice(2)] = array[index + 1];
         }
+
+        if(arg && arg.startsWith('--save')){
+            result['save'] = true;
+        }
     });
 
     return result;
