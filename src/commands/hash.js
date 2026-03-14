@@ -25,21 +25,13 @@ export const calcHash = async (args) => {
     const hash = crypto.createHash(algorithm);
     const readStream = createReadStream(pathInputFile);
 
-    readStream.on('readable', () => {
-        const data = readStream.read();
-
-        if (data)
-            hash.update(data);
-        else {
-            const output = `${algorithm}: ${hash.digest('hex')}`;
-            console.log(output);
-
-            if(save) {
-                const writeStream = createWriteStream(pathInputFile + '.' + algorithm);
-                writeStream.write(output);
-            }
-        }
-    });
-
     await pipeline(readStream, hash);
+
+    const output = `${algorithm}: ${hash.digest('hex')}`;
+    console.log(output);
+
+    if(save) {
+        const writeStream = createWriteStream(pathInputFile + '.' + algorithm);
+        writeStream.write(output);
+    }
 }

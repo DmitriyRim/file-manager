@@ -1,6 +1,7 @@
 import { count } from "./commands/count.js";
 import { csvToJson } from "./commands/csvToJson.js";
 import { calcHash } from "./commands/hash.js";
+import { hashCompare } from "./commands/hashCompare.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { ls, up, cd, currentDirectory } from "./navigation.js";
 
@@ -31,6 +32,9 @@ export const repl = async (rl ,line) => {
                 break
             case 'hash':
                 await calcHash(args);
+                break
+            case 'hash-compare':
+                await hashCompare(args);
                 break
             case '.exit':
                 return rl.close();    
