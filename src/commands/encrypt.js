@@ -35,8 +35,8 @@ export const encrypt = async (args) => {
 
     writeStream.write(Buffer.concat([salt, iv]));
     await pipeline(readStream, cipher, writeStream);
-    cipher.on('end', () => {
-        writeStream.write(cipher.getAuthTag());
-        writeStream.end();
-    })
+
+    const ws = createWriteStream(pathToOutput, { flags: 'a' });
+    ws.write(cipher.getAuthTag());
+    ws.end();
 }

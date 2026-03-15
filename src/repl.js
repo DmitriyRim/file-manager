@@ -1,5 +1,6 @@
 import { count } from "./commands/count.js";
 import { csvToJson } from "./commands/csvToJson.js";
+import { decrypt } from "./commands/decrypt.js";
 import { encrypt } from "./commands/encrypt.js";
 import { calcHash } from "./commands/hash.js";
 import { hashCompare } from "./commands/hashCompare.js";
@@ -39,6 +40,9 @@ export const repl = async (rl ,line) => {
                 break
             case 'encrypt':
                 await encrypt(args);
+                break
+            case 'decrypt':
+                await decrypt(args);
                 break
             case '.exit':
                 return rl.close();    
