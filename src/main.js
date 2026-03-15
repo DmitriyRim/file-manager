@@ -13,7 +13,6 @@ const init = async () => {
 
     rl.setPrompt('> ');
     rl.on('line', (line) => {
-        console.log(`Received: ${line}`);
         repl(rl, line);
     });
     rl.on('close', () => {

@@ -5,6 +5,7 @@ import { encrypt } from "./commands/encrypt.js";
 import { calcHash } from "./commands/hash.js";
 import { hashCompare } from "./commands/hashCompare.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
+import { logStat } from "./commands/logStats.js";
 import { ls, up, cd, currentDirectory } from "./navigation.js";
 
 export const repl = async (rl ,line) => {
@@ -43,6 +44,9 @@ export const repl = async (rl ,line) => {
                 break
             case 'decrypt':
                 await decrypt(args);
+                break
+            case 'log-stats':
+                await logStat(args);
                 break
             case '.exit':
                 return rl.close();    
